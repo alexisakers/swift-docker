@@ -70,7 +70,7 @@ This allows you to quickly create containers for Swift, which can be useful with
 
 ## The Dockerfiles
 
-The Dockerfiles have been generated dynamically using a Swift script (`swift-docker.swift`) and a manifest file (`manifest.json`). 
+The Dockerfiles have been generated dynamically using a [Swift script](`swift-docker.swift`) and a [manifest file](manifest.json). 
 If you want to try it, simply compile the script's source file and run :
 
 ```
