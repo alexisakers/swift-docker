@@ -1,0 +1,14 @@
+# Files
+.DS_Store
+.gitignore
+CHANGELOG
+Dockerfile.template
+LICENSE
+manifest.json
+README.md
+swift-docker
+swift-docker.swift
+
+# Directories
+assets
+docs

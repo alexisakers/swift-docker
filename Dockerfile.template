@@ -1,0 +1,19 @@
+# Configuration
+FROM {{image}}
+MAINTAINER Alexis Aubry Radanovic <aleks@alexis-aubry-radanovic.me>
+RUN mkdir /data
+VOLUME /data
+
+ARG SWIFT_VERSION={{swift_version}}
+ARG SWIFT_VERSION_CODE={{swift_version_code}}
+ARG SWIFT_TARBALL_PATH={{swift_tarball_path}}
+ARG SWIFT_PLATFORM={{swift_platform}}
+
+ADD build_scripts/ /build_scripts
+
+# 1- Installation
+{{build_scripts}}
+RUN rm -rf /build_scrips
+
+# 2- Add the toolchain to the path
+ENV PATH /swift/{{swift_version_code}}/usr/bin:$PATH
