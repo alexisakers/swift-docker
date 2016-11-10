@@ -1,6 +1,7 @@
 ![swift-docker](assets/logo.jpg)
 
-![License](https://img.shields.io/badge/Licence-MIT-000000.svg)
+[![View on DockerHub](https://img.shields.io/badge/Project%20Page-Docker%20Hub-1A273B.svg)](https://hub.docker.com/r/aleksaubry/swift-docker)
+[![The MIT License](https://img.shields.io/badge/Licence-MIT-000000.svg)](LICENSE)
 [![Twitter : @leksantoine](https://img.shields.io/badge/Twitter-%40leksantoine-6C7A89.svg)](https://twitter.com/leksantoine)
 
 `swift-docker` is a collection of [Docker](https://docker.com/) images that include Swift, plus other libraries & developer tools.
