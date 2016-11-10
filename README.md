@@ -9,18 +9,18 @@
 
 ### Swift 3.0.1
 
-| OS           | Image Tag                 |
-|--------------|---------------------------|
-| Ubuntu 16.04 | swift-docker:xenial-3.0.1 |
-| Ubuntu 15.10 | swift-docker:wily-3.0.1   |
-| Ubuntu 14.04 | swift-docker:trusty-3.0.1 |
+| OS           | Image Tag                            |
+|--------------|--------------------------------------|
+| Ubuntu 16.04 | aleksaubry/swift-docker:xenial-3.0.1 |
+| Ubuntu 15.10 | aleksaubry/swift-docker:wily-3.0.1   |
+| Ubuntu 14.04 | aleksaubry/swift-docker:trusty-3.0.1 |
 
 ### Swift 3.0
 
-| OS           | Image Tag               |
-|--------------|-------------------------|
-| Ubuntu 15.10 | swift-docker:wily-3.0   |
-| Ubuntu 14.04 | swift-docker:trusty-3.0 |
+| OS           | Image Tag                          |
+|--------------|------------------------------------|
+| Ubuntu 15.10 | aleksaubry/swift-docker:wily-3.0   |
+| Ubuntu 14.04 | aleksaubry/swift-docker:trusty-3.0 |
 
 ## Features
 
@@ -41,7 +41,7 @@ These images offer you a complete build environment to test your Swift programs 
 **1-** Pull an image of your choice using:
 
 ```
-docker pull swift-docker:[tag]
+docker pull aleksaubry/swift-docker:[tag]
 ```
 
 (replace `[tag]` with the tag of the image you chose)
@@ -49,7 +49,7 @@ docker pull swift-docker:[tag]
 **2-** Start it with:
 
 ```
-docker run -ti -v [local directory]:/data swift-docker:[tag] /bin/bash
+docker run -ti -v [local directory]:/data aleksaubry/swift-docker:[tag] /bin/bash
 ```
 
 Use the `-v [local directory]:/data` flag to bind a directory on your local machine (host) to the `/data` volume on the container. This enables you to save data between runs.
@@ -63,7 +63,7 @@ _Done!_
 You can use these images as the source image in your own Dockerfiles. Simply choose a version and add this line:
 
 ```
-FROM swift-docker:[tag]
+FROM aleksaubry/swift-docker:[tag]
 ```
 
 This allows you to quickly create containers for Swift, which can be useful with Heroku deployment or CI for instance.
