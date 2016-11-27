@@ -35,7 +35,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-docker",
+    name: "SwiftDocker",
     targets: [
         Target(name: "DockerKit"),
         Target(name: "DockerToolbox", dependencies: [.Target(name: "DockerKit")])
