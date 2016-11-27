@@ -1,6 +1,5 @@
 # 1- Setup
 mkdir /swift && cd /swift
-mkdir /sta
 
 SWIFT_FILE_BASE="swift-$SWIFT_VERSION-$SWIFT_PLATFORM"
 SWIFT_BASE_URL="https://swift.org/builds/$SWIFT_TARBALL_PATH/swift-$SWIFT_VERSION/$SWIFT_FILE_BASE"
