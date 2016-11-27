@@ -1,4 +1,3 @@
-# Configuration
 FROM {{image}}
 MAINTAINER Alexis Aubry Radanovic <aleks@alexis-aubry-radanovic.me>
 RUN mkdir /data
@@ -11,9 +10,9 @@ ARG SWIFT_PLATFORM={{swift_platform}}
 
 ADD build_scripts/ /build_scripts
 
-# 1- Installation
 {{build_scripts}}
 RUN rm -rf /build_scrips
 
-# 2- Add the toolchain to the path
+RUN chmod -R a+w /swift && chmod -R 777 /swift
+RUN chmod -R a+w /data && chmod -R 777 /data
 ENV PATH /swift/{{swift_version_code}}/usr/bin:$PATH
