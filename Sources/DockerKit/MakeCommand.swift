@@ -182,7 +182,7 @@ public class Make: Command {
 
                 do {
 
-                    let deployArguments = ["push", buildTask.name]
+                    let deployArguments = ["push", buildTask.imageName]
                     _ = try execute(program: "docker", arguments: deployArguments)
 
                     finish(deployBar)
