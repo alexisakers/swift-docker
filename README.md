@@ -82,13 +82,15 @@ If you want to build the images locally, or build your own, follow theses steps:
 **1-** Compile the program
 
 ```
-swift build
+swift build -c [config] -Xswiftc -D[mode]
 ```
+
+Replace [config;mode] with `debug;DEBUG` to use debug mode (preferred in low memory conditions) or with `release;RELEASE` to use release mode (fails with <8GB RAM).
 
 **2-** Build the image
 
 ```
-./.build/debug/DockerToolbox make
+./.build/[config]/DockerToolbox make
 ```
 
 You can use the `--manifest=path/to/custom/manifest.json` flag to use a manifest that is not in the working directory.
