@@ -2,11 +2,11 @@
 
 ## 2016-11-27 • Version 2
 
-This version focuses on improving the Swift build script.
+This version focuses on improving the Swift build automation script.
 
 The following changes have been made:
 
-- The build script has been converted to a shiny Swift Package
+- The Swift script has been converted to a Swift Package
 - Improved manifest parsing (100% safer!)
 - Better Console I/O
 

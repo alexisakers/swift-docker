@@ -260,10 +260,9 @@ extension Make {
             "build",
             "--no-cache",
             "--rm",
+            "--pull",
             "-t",
             buildTask.imageName,
-            "--no-cache",
-            "--pull",
             "-f",
             "\(dockerfilePath)",
             "."

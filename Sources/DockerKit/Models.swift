@@ -188,7 +188,7 @@ extension Platform: Unboxable {
 extension Version: Unboxable {
 
     public init(unboxer: Unboxer) throws {
-        major = try unboxer.unbox(key: "minor")
+        major = try unboxer.unbox(key: "major")
         minor = try unboxer.unbox(key: "minor")
     }
 
