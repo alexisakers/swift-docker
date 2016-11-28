@@ -63,8 +63,7 @@ public class Make: Command {
 
     public func run(arguments: [String]) throws {
 
-        let processBar = console.loadingBar(title: "🔎  Processing Context")
-        processBar.start()
+        let processBar = start("🔎  Processing Context")
 
         // 1- Read arguments
 
@@ -83,24 +82,24 @@ public class Make: Command {
         // 2- Check context
 
         guard manifestPath.exists else {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.noManifest(manifestPath.description)
         }
 
         guard templatePath.exists else {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.noTemplate(templatePath.description)
         }
 
         guard scriptsPath.exists else {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.noBuildScripts
         }
 
         // 3- Read manifest
 
         guard let manifestData = try? manifestPath.read() else {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.invalidManifest
         }
 
@@ -109,14 +108,14 @@ public class Make: Command {
         do {
             manifest = try unbox(data: manifestData)
         } catch {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.invalidManifest
         }
 
         // 4- Load template
 
         guard let dockerfileTemplateFile: String = try? templatePath.read() else {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.cannotReadTemplate
         }
 
@@ -137,11 +136,11 @@ public class Make: Command {
         do {
             try dockerfilesDirectory.mkdir()
         } catch {
-            processBar.fail()
+            fail(processBar)
             throw MakeError.cannotCreateBuildDirectory
         }
 
-        processBar.finish()
+        finish(processBar)
 
         let buildTasks = manifest.targets.map { self.buildTasks(for: $0, owner: userName) }.reduce([BuildTask]()) { $0 + $1 }
 
@@ -153,8 +152,7 @@ public class Make: Command {
 
         for buildTask in buildTasks {
 
-            let buildBar = console.loadingBar(title: "🛠  Building \(buildTask.imageName)")
-            buildBar.start()
+            let buildBar = start("🛠  Building \(buildTask.imageName)")
 
             let dockerfile = TemplateRenderer.render(dockerfileTemplate, context: buildTask.context)
             let dockerfilePath = dockerfilesDirectory + Path("Dockerfile-\(buildTask.name)")
@@ -162,36 +160,35 @@ public class Make: Command {
             do {
                 try dockerfilePath.write(dockerfile)
             } catch {
-                buildBar.fail()
+                fail(buildBar)
                 throw MakeError.cannotWriteDockerile(dockerfilePath.description)
             }
 
             do {
 
                 let buildArguments = self.buildArguments(for: buildTask, dockerfilePath: dockerfilePath)
-                _ = try console.backgroundExecute(program: "docker", arguments: buildArguments)
+                _ = try execute(program: "docker", arguments: buildArguments)
 
-                buildBar.finish()
+                finish(buildBar)
 
             } catch {
-                buildBar.fail()
+                fail(buildBar)
                 throw MakeError.imageBuildError(error)
             }
 
             if shouldDeploy {
 
-                let deployBar = console.loadingBar(title: "📤  Deploying \(buildTask.imageName)")
-                deployBar.start()
+                let deployBar = start("📤  Deploying \(buildTask.imageName)")
 
                 do {
 
                     let deployArguments = ["push", buildTask.name]
-                    _ = try console.backgroundExecute(program: "docker", arguments: deployArguments)
+                    _ = try execute(program: "docker", arguments: deployArguments)
 
-                    deployBar.finish()
+                    finish(deployBar)
 
                 } catch {
-                    deployBar.fail()
+                    fail(deployBar)
                     throw MakeError.imageDeployError(error)
                 }
 
@@ -267,6 +264,57 @@ extension Make {
             "\(dockerfilePath)",
             "."
         ]
+
+    }
+
+}
+
+// MARK: - Console I/O
+
+extension Make {
+
+    func start(_ task: String) -> LoadingBar {
+
+        let bar = console.loadingBar(title: task)
+
+        #if DEBUG
+            console.print(task)
+        #else
+            bar.start()
+        #endif
+
+        return bar
+
+    }
+
+    func finish(_ bar: LoadingBar) {
+
+        #if DEBUG
+            console.info("[Done]")
+        #else
+            bar.finish()
+        #endif
+
+    }
+
+    func fail(_ bar: LoadingBar) {
+
+        #if DEBUG
+            console.error("[Failed]")
+        #else
+            bar.fail()
+        #endif
+
+    }
+
+    func execute(program: String, arguments: [String]) throws -> String? {
+
+        #if DEBUG
+            try console.foregroundExecute(program: program, arguments: arguments)
+            return nil
+        #else
+            return try console.backgroundExecute(program: program, arguments: arguments)
+        #endif
 
     }
 
