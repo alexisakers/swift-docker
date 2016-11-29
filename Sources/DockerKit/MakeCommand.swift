@@ -253,17 +253,23 @@ extension Make {
 
     func buildArguments(for buildTask: BuildTask, dockerfilePath: Path) -> [String] {
 
-        return [
+        let base = [
             "build",
+            ".",
             "--no-cache",
             "--rm",
             "--pull",
             "-t",
             buildTask.imageName,
             "-f",
-            "\(dockerfilePath)",
-            "."
+            "\(dockerfilePath)"
         ]
+
+        #if RELEASE
+            return base + ["--quiet"]
+        #else
+            return base
+        #endif
 
     }
 
