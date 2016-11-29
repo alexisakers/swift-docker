@@ -8,7 +8,7 @@ cd nghttp2
 autoreconf -i
 automake
 autoconf
-./configure --enable-lib-only --prefix=/usr/
+./configure --enable-lib-only --prefix=/usr
 make
 make install
 

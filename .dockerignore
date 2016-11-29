@@ -1,14 +1,16 @@
 # Files
 .DS_Store
 .gitignore
-CHANGELOG
-Dockerfile.template
+.swift-version
+CHANGELOG.md
+DockerfileTemplate
 LICENSE
 manifest.json
+Package.swift
 README.md
-swift-docker
-swift-docker.swift
 
 # Directories
 assets
 docs
+Packages
+Sources

@@ -1,6 +1,5 @@
 # 1- Setup
 mkdir /swift && cd /swift
-mkdir /sta
 
 SWIFT_FILE_BASE="swift-$SWIFT_VERSION-$SWIFT_PLATFORM"
 SWIFT_BASE_URL="https://swift.org/builds/$SWIFT_TARBALL_PATH/swift-$SWIFT_VERSION/$SWIFT_FILE_BASE"
@@ -17,7 +16,7 @@ gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift
 gpg --verify $SWIFT_FILE_BASE.tar.gz.sig
 
 # 5- Extract the archive
-mkdir $SWIFT_VERSION_CODE 
+mkdir $SWIFT_VERSION_CODE
 tar xzf $SWIFT_FILE_BASE.tar.gz -C $SWIFT_VERSION_CODE --strip-components=1
 
 # 6- Cleanup
