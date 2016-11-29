@@ -29,7 +29,7 @@ These images come with several commonly used libraries and binaries. Among other
 
 For more infos, see :
 
-• [Contents of the 3.0 / 3.0.1 images](docs/1.0-RN.md)
+• [Contents of the images](docs/Contents.md)
 
 ## Usage
 
